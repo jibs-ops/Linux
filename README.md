@@ -15,6 +15,8 @@
 
 - netstat -apnn | grep LISTEN | egrep ‘993|143’
 
+- netstat -apnn | grep LISTEN | egrep '993|143' - https://serverfault.com/questions/317860/how-do-i-find-out-if-my-server-is-running-imap/317869
+
 
 ## An introduction of how Linux works
 
@@ -180,7 +182,77 @@ In both cases, the ls command runs with the -l (long listings), -a (shows the hi
 
   - This can be inconvenient especially if the command resided in a directory with a long path name. The better way is to have the commands stored in well known directories and then add these directories to your shells PATH environment variable. The path consists of a list of directories that are checked sequentially for the commands you enter. 
     - To see your current path, type the following:
-      - $echo $PATH
+      $echo $PATH
+
+- **Tip:** If you want to add your own commands or shell scripts, place them in the “bin” directory in your home directory (such as /home/chris/bin for the user named Chris). This directory is automatically added to your path in some Linux systems, although you need to create that directory or add it to your PATH on other Linux systems. So, as long as you add the command to your bin with execute permission, you can begin using it by simply typing the command name at your shell prompt. To make commands available to all users, add them to the /usr/local/bin.
+
+<br />
+
+- Directories are checked from left to right. Eg: /bin and /usr/bin is a file in /bin where it gets executed.
+
+<br />
+
+- Alias – “alias” is a command that represents a particular command and a set of options. Often, aliases enable you to define a short name for a long, complicated command. Typing the ‘alias’ command will show the commands that have an alias for it.
+
+<br />
+
+
+- cd – To change directories.
+- echo – To output text to the screen
+- exit – To exit from a shell.
+- fg – To bring a command running in the background to the foreground.
+- history – To see a list of commands that were previously run.
+- pwd – To represent the present working directory.
+- set – To set shell options.
+- type – To show the location of a command. To find out where a particular command is taken from. (If you are using a shell other than bash, use the which command instead:
+  - $ type bash
+
+<br />
+
+- bash is /bin/bash.
+
+<br />
+
+- type which, type case, and type return. The command type -a ls should show aliased and filesystem location for command "ls".
+
+<br />
+
+- Command not found may not be in the located path variable.
+
+<br />
+
+- Permisison denied = The command may be in the PATH variable, but may not be executable.
+
+<br />
+
+- If a command is not in your PATH variable, you can see the “locate” command. Eg: “locate chage”. -  - The locate command looks all over your filesystem, not just in directories that contain commands. This needs to be installed.
+
+<br />
+
+- “find” is the same as locate, however locate works more efficiently. It uses one or more databases populated by updatedb program and prints filenames making at least one of the pathnames (a user provides) to standard output.
+
+<br />
+
+- The locate package is provided by the GNU Findutils or mlocate package. The “mlocate” package which provides the locate and updatedb commands to find the files in Linux systems.
+
+<br />
+
+- locate bash_completion.sh
+- rpm -qa | grep findutils
+
+<br />
+
+- ***By default, the bash shell uses command-line editing that is based on the emacs text editor. (Type*** **man emacs** ***to read about it, if you care to.) If you are familiar with emacs, you probably already know most of the keystrokes described here.
+  - **Tip**
+  <br />
+  If you prefer the **vi** command for editing shell command lines, you can easily make that happen. Add the following line to the **.bashrc** file in your home directory:
+  - set -o vi
+ The next time you open a shell, you can use vi commands to edit your command lines.
+ 
+- Emacs editor -
+
+
+
 
 
 
