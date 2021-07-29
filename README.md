@@ -249,8 +249,50 @@ In both cases, the ls command runs with the -l (long listings), -a (shows the hi
   - set -o vi
  The next time you open a shell, you can use vi commands to edit your command lines.
  
-- Emacs editor -
+- Emacs editor - 
 
+<br />
+
+- **To try out a bit of command-line editing, type the following:**
+    - $ ls /usr/bin | sort -f | less
+      > This command lists the contents of the /usr/bin directory, sorts the contents in alphabetical order (regardless of the case), and pipes the output to less. The less command displays the first page of the output, after which you can go through the rest of the output from a line (by pressing the Enter key) or a page (press the spacebar key) at a time. Simply press q when you have finished. 
+
+
+## Keystrokes for navigating through the command line
+
+| Keystroke | Full Name         | Meaning |
+| --------- | ----------------- | ------- |
+| Ctrl+F    | Character Forward | Goes one character forward.   |
+| Ctrl+B    | Character Backward| Goes one character backwards. |
+| Alt+F | Word Forward| Go one word forward. |
+| Alt+B | Word Backward | Go one word backwards. |
+| Ctrl+A | Beginning of the line | Go to the beginning of the current line. |
+| Ctrl+E | End of the line | Go to the end of the line. |
+| Ctrl+L| Clear the screen | Clear the screen and leave the line at the top of the screen |
+
+Keystrokes for Editing the Command Line
+
+| Keystroke | Full Name | Meaning |
+| --------- | --------- | ------- |
+| Ctrl + D | Delete Current | Delete the current character. |
+| Backspace| Delete the previous | Delete the previous character. |
+| Ctrl+T | Transpose character | Switch positions of the current and previous words. |
+| Alt+T | Transpose Words | Switch positions of the current and the previous words. |
+| | | |
+| | | |
+| | | |
+| | | |
+
+| Keystroke | Full Name | Meaning |
+| --------- | --------- | ------- |
+| | | |
+| | | |
+| | | |
+| | | |
+| | | |
+| | | |
+| | | |
+| | | |
 
 
 
