@@ -258,7 +258,7 @@ In both cases, the ls command runs with the -l (long listings), -a (shows the hi
       > This command lists the contents of the /usr/bin directory, sorts the contents in alphabetical order (regardless of the case), and pipes the output to less. The less command displays the first page of the output, after which you can go through the rest of the output from a line (by pressing the Enter key) or a page (press the spacebar key) at a time. Simply press q when you have finished. 
 
 
-## Keystrokes for navigating through the command line
+### Keystrokes for navigating through the command line
 
 | Keystroke | Full Name         | Meaning |
 | --------- | ----------------- | ------- |
@@ -270,7 +270,9 @@ In both cases, the ls command runs with the -l (long listings), -a (shows the hi
 | Ctrl+E | End of the line | Go to the end of the line. |
 | Ctrl+L| Clear the screen | Clear the screen and leave the line at the top of the screen |
 
-Keystrokes for Editing the Command Line
+<br />
+
+### Keystrokes for Editing the Command Line
 
 | Keystroke | Full Name | Meaning |
 | --------- | --------- | ------- |
@@ -278,21 +280,58 @@ Keystrokes for Editing the Command Line
 | Backspace| Delete the previous | Delete the previous character. |
 | Ctrl+T | Transpose character | Switch positions of the current and previous words. |
 | Alt+T | Transpose Words | Switch positions of the current and the previous words. |
-| | | |
-| | | |
-| | | |
-| | | |
+| Alt+U | Uppercase Word | Change the current word to the uppercase of it. |
+| Alt+L | Lowercase Word | Chage the current word to the lowercase of it. |
+| Alt+C| Capialize Word | Chnage the current word to an initial capital. |
+| Ctrl+V | Insert a sppecial character | Add a special character. For example, to add a Tab character, press Ctrl+V+Tab |
+
+<br />
+
+### Keystrokes for Cutting and Pasting Text from within Command Lines
 
 | Keystroke | Full Name | Meaning |
 | --------- | --------- | ------- |
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
-| | | |
+| Ctrl+K | Cut end of line | Cut text to the end of the line. |
+| Ctrl+U | Cut beginning of line | Cut text to the beginning of the line. |
+| Ctrl+W | Cut previous word | Cut the word located behind the cursor. |
+| Alt+D | Cut next word | Cut the word following the cursor. |
+| Ctrl+Y | Paste recent text | Paste most recently cut text. |
+| Alt+Y | Paste earlier text | Rotate back to previously cut text and paste it. |
+| Ctrl+C | Delete whole line | Delete the entire line. |
+
+<br />
+
+  - **Command-line completion**
+    > To save you a few keystrokes, the bash shell offers several different ways of completing partially typed values. To attempt to complete a value, type the first few characters and press Tab. Here are some of the values you type partially from a bash shell:
+
+      - **Command, alias, or function -** If the text you type begins with regular characters, the shell tries to complete the text with a command, alias, or function name.
+      -  **Variable -** If the text you type begins with a dollar sign ($), the shell completes the text with a variable from the current shell.
+      -  **Username -** If the text you type begins with a tilde (~), the shell completes the text with a username. As a result, ~username indicates the home directory of the named user.
+      -  **Hostname -** If the text you type begins with the at symbol (@), the shell completes the text with a hostname taken from the /etc/hosts file.
+      
+    - **Tip** - To add hostnames from an additional file, you can set the HOSTFILE variable to the name of that file. The file must be in the same format as /etc/hosts.
+
+
+  - Here are a few examples of command completion. (When you see <Tab>, it means to press the Tab key on your keyboard.) Type the following:
+    - echo $OS<Tab>
+    - cd  ~ro<Tab>
+    - fing<Tab>
+  
+  - The first example causes $OS to expand to the $OSTYPE variable. In the next example, ~ro expands to the root user's home directory (~root/). Next, fing expands to the finger command.
+  
+  - Pressing the Tab key twice offers some wonderful posisbilities. Sometimes, several posisble completions for the string of characters you have entered are available. In those cases, you can check the possible ways text can be expanded by presisng Tab twice at the point where you want to do completion.
+  
+  - The following shows the result you would get of you checked for possible completions on $P:
+  
+    - $ **echo $P<Tab><Tab> **
+    - $ PATH $PPID  $PS1  $PS2  $PS4  $PWD
+    - $ echo $P
+  
+  - In this case, there are six possible variables that begin with $P. After the possibilities are dispalyed, the original command line returns, ready for you to complete it as you choose. For example, if you typed another P and pressed Tab again, the command line would be completed with $PPID (the only unique posisbility).
+  
+  ### Few commands to learn
+  
+  - history > history_for_print.txt – All the command history will be pushed to a new file called history_for_print.txt.
 
 
 
