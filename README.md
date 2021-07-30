@@ -329,9 +329,39 @@ In both cases, the ls command runs with the -l (long listings), -a (shows the hi
   
   - In this case, there are six possible variables that begin with $P. After the possibilities are dispalyed, the original command line returns, ready for you to complete it as you choose. For example, if you typed another P and pressed Tab again, the command line would be completed with $PPID (the only unique posisbility).
   
-  ### Few commands to learn
+  <br />
+  
+  ### Few commands to learn here.
   
   - history > history_for_print.txt – All the command history will be pushed to a new file called history_for_print.txt.
+  - !n – Run the command number. Replace n with the number in the command line.
+  - !! - run the previous command.
+  - !?string? — Run a command that contains a string. This runs the most recent command that contains a particular string of characters. For example, you can run the date command again by just searching for part of that command line as follows:
+
+    - $ !?
+      - Output - dat?dateWed Oct 29 21:32:41 PDT 2014 
+  
+
+<br />
+  
+| Key(s)  | Function Name | Description |
+| ------  | ------------- | ----------- |
+| Arrow Keys (up and down)  | Step  | Press the up and down arrow keys to step through each command line in your history list to arrive at the one you want. (Ctrl+P and Ctrl+N do the same functions, respectively.) |
+| Ctrl+R  | Reverse incremental search  | After you press these keys, you enter a search string to do a reverse search. As you type the string, a matching command line appears that you can run or edit. |
+| Ctrl+S  | Forward incremental search  | This is the same as the preceeding function but for forward search. (It may not work in all instances.)|
+| Alt+P | Reverse search  | After you press these keys, you enter a string to do a reverse search. Type a string and press Enter to see the most recent command line that includes that string. |
+| Alt+N | Forward search  | This is the same as the preceeding function but for forward search. (It may not work in all instances.) |
+  
+  
+ -  Another way to work with your history list is use the fc command. Type **fc** by a history line number, and that command line is opened in a text editor (vi by default; type **:wq** to save and exit or **:q!** to just exit if you are stuck in vi). Make the changes that you want. When you exit the editor, the command runs. You can also give a range of line numbers (for example, fc 100 105). All the commands you open in your text editor, and then run one after the other when you exit the editor.
+  
+  - After you close your shell, the history list is stored in the .bash_history file in your home directory. Up to 1,000 history commands are stored for you by default.
+  
+  - **Note -**
+    > Some people disable the history feature for the root user by setting the HISTFILE to /dev/null or simply leaving HISTSIZE blank. This prevents information about the root user's activities from potentially being exploited. If you are an administrative user with root privileges, you may want to consider emptying your file upon exiting as well for the same reasons. Also, because shell history is stored permanently when the shell exits properly, you can prevent storing a shell's history by killing a shell. For example, to kill a shell with process ID 1234, type kil -9 1234 from any shell.
+  
+- A metacharacter
+
 
 
 
