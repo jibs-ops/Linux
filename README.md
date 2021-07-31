@@ -360,10 +360,127 @@ In both cases, the ls command runs with the -l (long listings), -a (shows the hi
   - **Note -**
     > Some people disable the history feature for the root user by setting the HISTFILE to /dev/null or simply leaving HISTSIZE blank. This prevents information about the root user's activities from potentially being exploited. If you are an administrative user with root privileges, you may want to consider emptying your file upon exiting as well for the same reasons. Also, because shell history is stored permanently when the shell exits properly, you can prevent storing a shell's history by killing a shell. For example, to kill a shell with process ID 1234, type kil -9 1234 from any shell.
   
-- A metacharacter
+- A metacharacter is a typed character that has a special meaning to the shell for connecting commands or requesting expansion. Metacharacters include the pipe character (|), ampersand (&), semicolon (;), right parenthesis ( ) ), left parenthesis ( ( ), less than sign (<), and greater than sign (>). 
+ 
+ -  In UNIX to see how the document really appeared, they would use a command such as the following:
+    - $ gunzip < /usr/share/man/man1/grep.1.gz | nroff -c -man | less 
+                                              
+ 
+  > In this example, the contents of the grep man page (grep.1.gz) are directed to the gunzip command to be unzipped. The output from gunzip is piped to the nroff command to format the man page using the manual macros (- man). The output is piped to the less command to display the output. Because the file being displayed is in plain text, you could have substituted any number of options to work with the text before displaying it. You could sort the contents, change or delete some of the content, or bring in text from other documents. The key is that, instead of all those features being in one program, you get results from piping and redirecting input and output between multiple commands. 
+  
+<br />
+  
+### Sequesntial Commands
+  
+- Sometimes, it may be needed that a sequence of commands will have to be executed, with one command completing before the next command begins. You can do this by typing several commands on the same command line and separating them with semicolons (;):
+    - $ date  ; troff -me verylargedocument | lpr ; date
+  
+  > In the above example, I was formatting a huge document and wanted to know how long it would take. The first comman (date) showed the date and tim before the formatting started. The "troff" command formatted the document and then piped the output to the printer. When the formatting was finished, the date and time were printed again (so I knew how long the "troff" command took to complete).
+  
+- Another useful command to add to the end of a long command line email. You could add the following to the end of a command line.
+  
+  - ; mail  -s  "Finished the long  command"  chris@example.com
+  
+- Then, for example,  a mail message is sent to the user you choose after the command completes.
 
+- You can have the commands run in the background by using the ambersand (&).
+  
+- On Unix-like operating systems, the nroff command (short for "new runoff"), is used to format ("run off") documents for display or fixed-width printing. In addition to user functions, internally, the system uses it to format the text in man pages.
+  
+- On Unix-like operating systems, the troff command performs typesetting functions and formats documents. It is the major component of the document processing system developed by AT&T for Unix.
+  
+### Background commands
+  
+- Some commands can take a while to complete. Sometimes, you may not want to tie up your shell waiting for a command to finish. In those cases, you can have the commands run in the background by using the ampersand (&).
+  
+- Text formatting commands (such as "nroff" and "troff", described earlier) are examples of commands that are often run in the background to format a large document. You also might want to create you own shell scripts that run in the background to check continuously for certain events to occur, such as the hard disk filling up or particular users loggin in.
+  
+- The following is an example of a command being run in the background:
+   -  $ troff -me verylargedocument | lpr &
+  
+- Don't close the shell until the process is completed, or that kills the process.
+  
+- The two forms of command substitution are $(command) and `command` (backticks, not single quotes). 
+  
+### Expanding commands
+  
+- With command substitution, you can have the output of a command interpreted by the shell instead of by the command itself. In this way, you can have the standard output of a command become an argument for another command. The two forms of command substitutions are $(command) and `command` (backticks, not single quotes).
+  
+- The command in this case can include options, metacharacters, and arguments. The following is an example of using command substitution:
+  
+  - $ vi $(find /home | grep xyzzy)
 
+- In this example, the command substitution is done before the vi command is run. First, the find command starts at the /home directory and prints out all files and directories below that point in the filesystem. The output is piped to the grep command, which filters out all files except for those that include the string xyzzy in the filename. Finally, the vi command opens all filenames for editing (one at a time) that include xyzzy. (If you run this and are not familiar with vi, you can type :q! to exit the file.)
+  
+- This particular example is useful if you want to edit a file for which you know the name but not the location. As long as the string is uncommon, you can find and open every instance of a filename existing beneath a point you choose in the filesystem. (In other words, don’t use grep from the root filesystem or you’ll match and try to edit several thousand files.)
+  
+### Expanding arithmetic operations
+  
+- There are two forms you can use to expand an arithmetic expression and pass it to the shell: 
+  - $[expression] or $(expression). 
+  
+- The following is an example:
 
+- $ echo "I am $[2015 - 1957] years old."
+  - I am 58 years old.
+
+- The shell interprets the arithmetic expression first (2015 - 1957) and then passes that information to the echo command. The echo command displays the text, with the results of the arithmetic (58) inserted. 
+
+- Here’s an example of the other form:
+
+- $ echo "There are $(ls | wc -w) files in this directory."
+  - There are 14 files in this directory.
+
+- This lists the contents of the current directory (ls) and runs the word count command to count the number of files found (wc -w). The resulting number (14, in this case) is echoed back with the rest of the sentence shown. 
+  
+### Expanding variables
+
+- Variables that store information within the shell can be expanded using the dollar sign ($) metacharacter. When you expand an environment variable on a command line, the value of the variable is printed instead of the variable name itself, as follows: 
+
+- ls -l $BASH
+  - -rwxr-xr-x 1 root root 1012808 Oct 8 08:53 /bin/bash 
+
+- Using $BASH as an argument to ls -l causes a long listing of the bash command to be printed. 
+  
+  
+### Using Shell Variables 
+ 
+- Examples of variables include $SHELL (which identifies the shell you are using), $PS1 (which defines your shell prompt), and $MAIL (which identifies the location of your mailbox).
+
+- You can see all variables set for your current shell by typing the set command. A subset of your local variables are referred to as environment variables. Environment variables are variables that are exported to any new shells opened from the current shell. Type env to see environment variables.
+
+- You can type echo $VALUE, where VALUE is replaced by the name of a particular environment variable you want to list. And because there are always multiple ways to do anything in Linux, you can also type declare to get a list of the current environment variables and their values along with a list of shell functions. 
+
+  - $ echo $USER
+    - chris
+
+  - This command prints the value of the USER variable, which holds your username (chris). 
+  
+| Variable  | Description |
+| --------  | ----------- |
+| PROMPT_COMMAND  | This can be set to a command name that is run each time before your shell prompt is diplayed. Setting PROMPT_COMMAND=date lists the current date/time before the prompt appears.  |
+| PS1 | This sets the value of your shell prompt. There are many items that you can read into your prompt (date, time, username, hostname, and so on). Sometimes a command requires additional prompts, which you can set with the variales PS2, PS3, and so on.  |
+| PWD | This is the directory that is assigned as your current directory. This value changes each time you change directories using the cd command. |
+| RANDOM  | Accessing the variable causes a random number to be generated. The number is between 0 and 99999. |
+| Seconds  | This is the numbe rof seconds since the time the shell was started. |
+| SHLVL | This is the number of shell levels associated with the current shell session. When you log to the shell, the SHLVL is 1. Each time you start a new bash command (by, for exmaple, using su to become a ne wuser, or by simply typing bash), this number is incremented. |
+| TMOUT | This can be set to a number representing the numbe rof seconds the shell can eb idle without receiving input. After the number of seconds is reached, the shell exits. The security feature makes it less likely for unattended shells to be accessed by unauthorized people. (This must be set in the login shell for it to actually cause the shell to log out the user.) |
+  
+  
+### Creating and using aliases
+
+- Using the alias command, you can effectively create a shortcut to any command and options you want to run later. You can add and list aliases with the alias command. Consider the following examples of using alias from a bash shell:
+
+  - $ alias p='pwd ; ls –CF'
+  - $ alias rm='rm -i'
+
+- In the first example, the letter p is assigned to run the command pwd, and then to run ls -CF to print the current working directory and list its contents in column form. The second example runs the rm command with the -i option each time you type rm. (This is an alias that is often set automatically for the root user. Instead of just removing files, you are prompted for each individual file removal. This prevents you from automatically removing all the files in a directory by mistakenly typing something such as rm *.) 
+
+- You can check which aliases are set by typing the alias command. If you want to remove an alias, type unalias. (Remember that if the alias is set in a configuration file, it will be set again when you open another shell.)
+  
+-  To exit the shell when you are finished, type exit or press Ctrl+D. 
+
+-  The su command opens a shell as a new user. 
 
 
 
