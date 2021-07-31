@@ -481,6 +481,60 @@ In both cases, the ls command runs with the -l (long listings), -a (shows the hi
 -  To exit the shell when you are finished, type exit or press Ctrl+D. 
 
 -  The su command opens a shell as a new user. 
+  
+  
+### Confugring your shell
+  
+- Several configuration files support how your shell behaves. Some of the files are executed for every user and every shee, whereas others are specific to the user who creates the configuration file. The tabl below shows the files that are of interest to anyone using the bash shell in Linux. (Notice the use of ~ in the filenames to indicate the the file is located in each user's home directory.)
+  
+### Bash Configuration Files
+
+| File  | Description |
+| ----  | ----------- |
+| /etc/profile  | This sets up user environment information for every user. It is executed when you first log in. This files provides values for you path, in addition to setting environment variables for such things as the location of your mailbox and the size of your history files. Finally, /etc/profile gathers shell settings from configuration files in the /etc/profile.d directory.  |
+| /etc/bashrc | This executes for every user who runs the bash shell, each time a bash shell is opened. It sets the default prompt and may add one or more aliases. Values in this file can be overridden by information in each user's ~/.bashrc file. |
+| ~/.bash_profile | This is used by each to enter information that is specific to his or her use of the shell. It is executed only once, when the user logs in. By default, it sets a few environment variables and executes the user's .bashrc file. This is a good place to add environment variables because, once set, they are inherited by future shells. |
+| ~/.bashrc | This contains the information that is specific to your bash shells. It is read when you log in and also each time you open a new bash shell. This si the best location to add aliases so that your shell picks them up. |
+| ~/.bash_logout  | This executes each time you log out (exit the last bash shell). By default, it simply clear your screen.  |
+  
+- To change the /etc/profile or /etc/bashrc files, you must be the root user. Users can change the information in the $HOME/.bash_profile, $HOME/.bashrc, and $HOME/.bash_logout files in their own home direcotries.
+  
+- type nano $HOME/.bashrc
+  > In the nano editor type: alias d='date +%D' . Open a new shell and just type d.
+
+- To have the new information you just added to the file available from the current shell, type the following:
+
+  - $ source $HOME/.bashrc 
+
+- If you change directories, the bin name would change to the name of the new directory. 
+
+
+Characters to Add Information to bash Prompt
+  
+| Special Character | Description |
+| ----------------- | ----------- |
+| \!  | This shows the current command history number. This includes all previous commands stored for your username.  |
+| \#  | This shows the command number of the current command. This included only the commands for the active shell. |
+| \$  | This shows the user prompt ($) or root prompt (#), depending on which user you are. |
+| \W  | This shows only the current working directory's base name. For example, if the current working directory was /var/spool/mail, this value simply appears as mail.  |
+| \[ | This precedes a sequence of nonprinting characters. This can be used to add a terminal control sequence into the prompt for such things as changing colours, adding blink effects, or making characters bold. (Your terminal determines the exact sequences available.)
+| \] | This follows a sequence of nonprinting characters.  |
+| \\  | This shows a backslash. |
+| \d  | This displays the day name, month, and day number of te current date - for example, Sat Jan 23. |
+| \h  | This shows the hostname of the computer running the shell.  |
+| \n  | This causes a newline to occur. |
+| \nnn  | This shows the character that relates to the octal number replacing nnn.  |
+| \s  | This displays the current shell name. For the bash shell, the value would be bash.  |
+| \t  | This prints the current time in hours, minutes, and seconds - for example, 10:14:39 |
+| \u  | This prints your current username.  |
+| \w  | This displays the full path to the current working directory. |
+  
+- To make a change to your prompt permanent, add the value of PS1 to your .bashrc file in your home directory (assuming that you are using the bash shell). There may already be a PS1 value in that file that you can modify. Refer to the Bash Prompt HOWTO (http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO) for information on changing colors, commands, and other features of your bash shell prompt. 
+
+  
+  
+  
+  
 
 
 
