@@ -531,6 +531,94 @@ Characters to Add Information to bash Prompt
   
 - To make a change to your prompt permanent, add the value of PS1 to your .bashrc file in your home directory (assuming that you are using the bash shell). There may already be a PS1 value in that file that you can modify. Refer to the Bash Prompt HOWTO (http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO) for information on changing colors, commands, and other features of your bash shell prompt. 
 
+<br />
+  
+### Adding environment variables
+
+- You might want to consider a few environment variables to your .bashrc file. These can help make working with the shell more efficient and effective:
+  
+  - TMOUT - This sets how long the shell can be inactive before bash automatically exists. The value is the number of seconds for which the shell has not received input. This can be a nice security feature, in case you leave your desk while you are still logged in to Linux. To prevent being logged off while you are working, you may want to set the value to something like TMOUT=1800 (to allow 30 minutes of idle time). You can use any terminal session to close the current shell after a set number of seconds - for example, TMOUT=30.
+  
+  - PATH - As described earlier, the PATH variable sets the directories that are searched for commands you use. If you often use directories of commands that are not in your path, you can permamnently add them. To do this, add a PATH variable to yuor .bashrc file. For example, to add a directory called /getstuff/bin, add the following:
+  
+    - PATH+$PATH:/getstuff/bin ; export PATH
+  
+    ** This above example first reads all the current path directories into the new PATH ($PATH), add the /getstuff/bin directory, and then exports the new PATH.
+  
+  - **Caution**
+    > Some people add the current directory to their PATH by adding a directory identified simply as a dot (.) as follows:
+  
+      - PATH=,:$PATH  ; export  PATH
+  
+    > This enables you to run commands in your current directory before evaluating any other command in the path (which people may be used to if they have used DOS). However, the security risk with this procedure is that you could be in a directory that contains a command that you don't intend to run from that directory. For example, a malicious person could put an ls command in a directory that, instead of listing the content of your directory, does something devious. Because of this, the practice of adding the dot to your path is highly discouraged.
+  
+
+- You can create your own environment variables to provide shortcuts in your work. Choose any name that is not being used and assign a useful value to it. For example, if you do lots of work with files in the /work/time/files/info/memos directory, you could set the following variable:
+
+  - M=/work/time/files/info/memos ; export M 
+
+- You could make that your current directory by typing cd $M. You could run a program from that directory called hotdog by typing $M/hotdog. You could edit a file from there called bun by typing vi $M/bun.
+  
+<br />
+  
+### Getting information about Commands
+  
+  - When you first start using the shell, it can be intimidating. All you see is a prompt. How do you know which commands are available, which options the use, or how to use advances features? Fortunately, lots of help is available. Here are some places you can look to supplement what you learn here:
+
+  <br />
+  
+    - **Check the PATH.** Type echo $PATH. You see a list of the directories containing commands that are immediately accessible to you. Listing the contents of hose directories displays most standard Linux commands. For example:
+  
+      - **ls  /bin** <br />
+        arch      dd            fusermount    loadkeys    mv              rnano <br />
+        awk       df            gawk          login       nano            rmp <br />
+        basename  dmseg         gettext       ls          netstat         rvi <br />
+        bash      dnsdomainname grep          lsblk       nice            rview <br />
+        cat       domainname    gtar          lscgroup    nisdomainname   sed <br />
+        chgrp     echo          gunzip        lssubsys    ping            setfont <br />
+        chmod     ed            gzip          mail        ping6           setserial <br />
+        chown     egrep         hostname      mailx       0ps             sh <br />
+        cp        env           1pcalc        mkdir       pwd             sleep <br />
+        cpio      ex            kbd_mode      mknod       readlink        sort <br />
+        csh       false         keyctl        mktemp      red             stty
+        cut       fgrep         kill          more        redhat_lsb_init su <br />
+        dash      find          link          mount       rm              sync <br />
+        date      findmnt       ln            mountpoint  rmdir           tar <br />
+  
+  <br />
+  
+  - **Use the help command.** Some commands are built into the shell, so they do not appear in a directory. The help command lists those commands and shows options available with each of them. (Type help | less to page through the list.) For help with a particular built-in command, type the help command, replacing command with the name that interests you. The help command works with the bash shell only.
+  
+  - **Use --help with the command.** Mnay commands include a --help option that you can use to get information about how the command is used. For example, if you type date --help | less, the output shows not only options, but also time formats you can use with the date command. Other commands simply use a -h option, like fdisk -h.
+  
+  - **Use the info command.** The info command is another tool for displaying information about commands from the shell. The info command can move along a hierachy of nodes to find information about commands and other items. Not all commands have information available in the info database, but sometmes more information can be found there on a man page.
+  
+  - **Use the man command.**  To learn more about a particular command, type the man command. (Replace command with the command name that you want.) A description of the command an dits options appears on the screen.
+  
+  <br />
+  
+- Man pages are the most common means of getting information about commands, as well as other basic components of a Linux systemm. Each man page falls into one of the categories listsed i Table 3.8. As a regular user, you will be most interested in man pages in section 1. As a system administrator, you will also be interested in sections 5 and 8, and occasionally section 4. Programmers will be interested in section 2 and 3 man pages.
+  
+--  **Manual Page Sections**
+  
+| Section Number  | Section Name  | Description |
+| --------------  | ------------  | ----------- |
+| 1 | User Commands | Commands that can be run from the shell by a regular user (typically no administrative privilege is needed) |
+| 2 | System  Calls | Programmin functions used within an application to make calls to the kernel |
+| 3 | C Library Functions | Programming functions that provide interfaces to specific programming libraries (such as those for certain graphical interfaces or other libraries that operate in user space)  |
+| 4 | Devices and Special Files | Filesystem nodes that represent hardware devices (such as terminals or CD drives) or software devices (such as random number generators)  |
+| 5 | File Formats and Conventions  | Types of files (such as graphics or word processing file) or specific configuration files (such as the passwd or group file)  |
+  
+- ps -p $$ – Display your current shell name reliably.
+- echo "$SHELL" – Print the shell for the current user but not necessarily the shell that is running at the movement.
+- alias mypass=’/etc/passwd’
+  
+  
+
+## Moving around the filesystem
+    
+    
+
   
   
   
