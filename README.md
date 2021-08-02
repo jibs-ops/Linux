@@ -569,21 +569,21 @@ Characters to Add Information to bash Prompt
   
     - **Check the PATH.** Type echo $PATH. You see a list of the directories containing commands that are immediately accessible to you. Listing the contents of hose directories displays most standard Linux commands. For example:
   
-      - **ls  /bin** <br />
-        arch      dd            fusermount    loadkeys    mv              rnano <br />
-        awk       df            gawk          login       nano            rmp <br />
-        basename  dmseg         gettext       ls          netstat         rvi <br />
-        bash      dnsdomainname grep          lsblk       nice            rview <br />
-        cat       domainname    gtar          lscgroup    nisdomainname   sed <br />
-        chgrp     echo          gunzip        lssubsys    ping            setfont <br />
-        chmod     ed            gzip          mail        ping6           setserial <br />
-        chown     egrep         hostname      mailx       0ps             sh <br />
-        cp        env           1pcalc        mkdir       pwd             sleep <br />
-        cpio      ex            kbd_mode      mknod       readlink        sort <br />
+      - **ls  /bin** 
+        arch      dd            fusermount    loadkeys    mv              rnano 
+        awk       df            gawk          login       nano            rmp 
+        basename  dmseg         gettext       ls          netstat         rvi 
+        bash      dnsdomainname grep          lsblk       nice            rview 
+        cat       domainname    gtar          lscgroup    nisdomainname   sed 
+        chgrp     echo          gunzip        lssubsys    ping            setfont 
+        chmod     ed            gzip          mail        ping6           setserial 
+        chown     egrep         hostname      mailx       0ps             sh 
+        cp        env           1pcalc        mkdir       pwd             sleep 
+        cpio      ex            kbd_mode      mknod       readlink        sort 
         csh       false         keyctl        mktemp      red             stty
-        cut       fgrep         kill          more        redhat_lsb_init su <br />
-        dash      find          link          mount       rm              sync <br />
-        date      findmnt       ln            mountpoint  rmdir           tar <br />
+        cut       fgrep         kill          more        redhat_lsb_init su 
+        dash      find          link          mount       rm              sync
+        date      findmnt       ln            mountpoint  rmdir           tar 
   
   <br />
   
@@ -616,7 +616,65 @@ Characters to Add Information to bash Prompt
   
 
 ## Moving around the filesystem
-    
+  
+- In Linux, files are organized within a hierarchy of directories. 
+
+<br />
+  
+- If you were to map out the files and directories in Linux, it would look like an upside-down tree. At the top is the root directory (not to be confused with the root user), which is represented by a single slash (/). Below that is a set of common directories in the Linux system, such as bin, dev, home, lib, and tmp, to name a few. Each of those directories, as well as directories added to the root directory, can contain sub-directories.  
+
+  ![image](https://user-images.githubusercontent.com/84306023/127815556-c6cff229-59c6-4fce-b200-9dfd806e19ac.png)
+
+  - To access files in the directory joe you can either go in as /home/joe/Documents/memos/memo1.doc or else if you’re let’s say inside the sub-directory “Documents” and then you will only have to navigate to /memos/memo1.doc.
+  
+  - Some of the Linux Directories that may interest you:
+    - /bin - Contains common Linux user commands, such as ls, sort, date, and chmod.
+    - /boot - Has the bootable Linux kernel and boot loader configuration files (GRUB).
+    - /dev - Contains files representing access points to devices on your systems. These include terminal devices (tty*), floppy disks (fd*), hard disks (hd* or sd*), RAM (ram*), and CD-ROM (cd*). Users can access these devices directly through these devices; however, applications often hide the actuak device names from end users.
+    - /etc - Contains administrative configuration files. Most of these files are plaintext files that can be edited with any text editor if the user has proper permission.
+    - /home -  Contains directories assigned to each regular user with a login account. (The root user is an exception, using /root as his or her home directory.)
+    - /media - Provides a standard location for automounting devices (removable media in particular). If the medium has a volume name, that name is typically used as the mount point. For example, a USB drive with a volume name of myusb would be mounted on /media/myusb.
+    - /lib - Contains shared libraries needed by application in /bin and /sbin to boot the system.
+    - /mnt - A common mount point for many devices before it was supplanted by the standard /media directory. Some bootable Linux systems still use this directory to mount hard disk partitions and remote filesystems. Many people still use this directory to temporarily mount local or remote filesystems that are not mounted permanently.
+    - /misc - A directory sometimes used to automount filesystems upon request.
+    - /opt - Directory structure available to store add-on application software.
+    - /proc - Contain information about system resources.
+    - /root - Represents the root user's home directory. The home directory for root does not reside beneath /home for security reasons.
+    - /sbin - Contains administrative commands and daemon processes.
+    - /tmp - Contains temporary files used by applications.
+    - /usr  - Contains user documentation, games, graphical files (X11), libraries (lib), and a variety of other commands and files that are not needed during the boot process. The /usr directory is meant for files that don't change after installation (in theory, /usr could be mounted read only).
+    - /var - Contains directories of data used by various applications. In particular, this is where you would place files that you share as an FTP server (/var/ftp) or a web server (/var/www). It also contains all system log files (/var/log) and spool files in /var/spool (such as mail, cups, and news). The /var directory contains directoriesand files that are meant to change often. On server computers, it is common to create the /var directory as a separate filesystem, using a filesystem type that can be easily expanded.
+  
+  - The filesystem in the DOS and Microsoft Windows operating systems differ from Linux's file structure, as the sidebar "Linux Filesystems versus Windows-Based Filesystems" expalins.
+  
+### Linux Filesystems versus Windows-Based Filesystems
+  
+Although similar in many ways, the Linux filesystem has some striking differences from filesystems used in MS-DOS and Windows operating systems. Here are a few:
+  
+    - In MS-DOS and Windows filesystems, drive letters represent different storage devices (for example, A: is a floppy drive and C: is a hard disk). In Linux, all storage devices are connected to the filesystem hierachy. SO the fact that all of /usr may be on a separate hard disk or that /mnt/remote1 is a filesystem from another computer is invisible to the user.
+  
+    - Slashes,r ather than backslashes, are used to separate directory names in Linux. So C:\home\joe in a Microsoft system is /home/joe in a Linux system.
+  
+    - Filenames almost always have suffixes in DOS (such as .txt for text files or .doc for word-processing files). Although at times you can use convention in Linux, three-character suffixes have no required meaning in Linux. They can be useful for identifying a file tpye. Many Linux applications and desktop environments use file suffixes to determine the contents of a file. In Linux, however, DOS comman extensions such as .com, .exe, and .bat don't necessarily signify an executable (Permission flags make Linux files executable.)
+  
+    - Every file and directory in a Linux system has permissions and ownership associated with it. Security varies among Microsoft systems. Because DOS and Microsoft Windows began as single-user systems, fiel ownership was not built into those systems when they were designed. Later releases added features such as file and folder attributes to address this problem.
+  
+<br />
+  
+**Commands to create and use files**
+  
+- cd – Changes to another directory.
+- pwd – Prints the name of the current or present working directory.
+- mkdir – Creates a directory.
+- chmod – Changes the permission on a file or directory.
+- ls – Lists the contents of a directory.
+  
+
+- /usr/share – Represents the absolute path because it begins with a slash (/). 
+- cd ~ Takes you to the home directory.
+- Use the two dots (..) to go to a directory above the current directory.
+  
+  
     
 
   
