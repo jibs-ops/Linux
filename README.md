@@ -674,6 +674,103 @@ Although similar in many ways, the Linux filesystem has some striking difference
 - cd ~ Takes you to the home directory.
 - Use the two dots (..) to go to a directory above the current directory.
   
+  - **Exercise**
+     1. cd → pwd → mkdir test → ls -ld test
+     2. drwxr-xr-x 2 joe sales 1024 Jan 24 12:17 test
+     3. This listing shows that test is a directory (d). The d is followed by the permissions (rwxr-xr-x). The owner (joe), the group (sales), and the date that the files in the directory were most recently modified (Jan 24 at 12:17 p.m.).  
+  
+- Note:
+  > In Fedora and Red Hat ENterprise Linux, when you add a new user, the user is assigned to a group of the same name by defualt. For example, in the preceding text, the user joe would be assigned to the group joe. This approach to assigning groups is referred to as the user private group scheme.
+  
+    - chmod 700 test (This step changes the permissions of the directory to give you complete access and everyone else no access at all. (The new permissions should read rwx------.)
+    - $ cd test
+    - $ pwd
+      - /home/joe/test  
+  
+### Using Metacharacters and Operators
+  
+- Whether you are lisitng, moving, copying, removing, or otherwise acting on files in your Linux system, certain special characters, referred to as metacharacters and operators, elp you to work with files more efficiently. Metacharacters can help you match one or more files without completely typing each file name. Operators enable you to direct information from one command or file to another command or file.
+  
+#### Using file-matching metacharacters
+
+-  To save you some keystrokes and to enable you to refer easily to a group of files, the bash shell lets you use metacharacters. Any time you need to refer to a fiel or directory, such as to list it, open it, or remove it, you can use metacharacters to match the files you want. Here are some useful metacharacters for matching filenames:
+  
+   - *-Matches any number of characters.
+   - ?-Matches any one character.
+    - [...]-Matches any one of the characters between the brackets, which can include a hyphen-separated range of letters or numbers.
+  
+- Exercise
+  --------
+  1. touch apple banana grape grapefruit watermelon. (Please be aware that the touch command creates empty files.)
+  2. ls a* (any file that begins with a).
+  3. ls g* (any file that begins with g).
+  4. ls g*t (any file that begins with g and ends with t).
+  5. ls *e* (any file that contains e in the name is matched, can also be as ls *e*r*).
+  6. ls *n* (any file that contains n is matched).
+  
+<br />
+  
+- Here are a few examples of pattern matching with the question mark (?):
+  - $ ls ????e
+    - apple grape
+
+  - $ ls g???e*
+    - grape grapefruit
+  
+  > The first example matches any five-character file that ends in e (apple, grape). The second example matches any file that begins with g and has e as its fifth character (grape, grapefruit).
+  
+  <br />
+  
+  - The following examples use braces to do pattern matching:
+    - $ ls [abw]*
+      - apple banana watermelon
+  
+    - $ ls [agw]*[ne]
+      - apple grape watermelon
+ <br />
+  
+  > In the first example, any file beginning with a, b, or w is matched. In the second, any file that begins with a, g, or w and also ends with either n or e is matched. You can also include ranges within brackets. For example:
+    - $ ls [a-g]*
+      - apple banana grape grapefruit
+        > Here, any filenames beginning with a letter from a through g are matched. 
+  
+-------
+  
+### Using file-redirection metacharacters
+
+- Using pipes, you can direct standard output from one command to the standard input of another. 
+  
+- With files, you can use less than (<) and greater than (>) signs to direct data to and from files. Here are the file-redirection characters: 
+  
+  -  <— Directs the contents of a file to the command. In most cases, this is the default action expected by the command and the use of the character is optional; using less bigfile is the same as less < bigfile. 
+  -  >— Directs the standard output of a command to a file. If the file exists, the content of that file is overwritten.
+  -  2>— Directs standard error (error messages) to the file. 
+  -  &>—Directs both standard output and standard error to the file. 
+  -  >>—Directs the output of a command to a file, adding the output to the end of the existing file.  
+
+
+> A command when wanting to open the file explorer with root permissions: 
+  - sudo apt install mailutils
+
+<br />
+ 
+ Examples
+------
+  
+  
+- $ mail root < ~/.bashrc (The content of the .bashrc file in the home directory is sent in a mail message to the computer’s root user.) 
+- $ man chmod | col -b > /tmp/chmod (Formats the chmod man page (using the man command), removes extra back spaces (col -b), and sends the output to the file /tmp/chmod (erasing the previous /tmp/chmod file, if it exists) 
+- $ echo "I finished the project on $(date(+%d)" >> ~/projects 
+(Results in the following text being added to the user’s project file:
+  - I finished the project on Sat Sep 6 13:46:49 EDT 2015 )
+
+  
+  
+  
+
+  
+
+  
   
     
 
