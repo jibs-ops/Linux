@@ -194,6 +194,9 @@ In both cases, the ls command runs with the -l (long listings), -a (shows the hi
 
 - Alias – “alias” is a command that represents a particular command and a set of options. Often, aliases enable you to define a short name for a long, complicated command. Typing the ‘alias’ command will show the commands that have an alias for it.
 
+    - Example: $ alias mv
+                 alias mv='mv -i' 
+
 <br />
 
 
@@ -763,15 +766,140 @@ Although similar in many ways, the Linux filesystem has some striking difference
 - $ echo "I finished the project on $(date(+%d)" >> ~/projects 
 (Results in the following text being added to the user’s project file:
   - I finished the project on Sat Sep 6 13:46:49 EDT 2015 )
-
-  
-  
   
 
+  - Another type of redirection, referred to as here text (also called a here document), enables you to type text that can be used as standard input for a command. Here documents involve entering two-less than characters (<<) after a command, followed by a word. All typing following that word is taken as user input until the word is repeated on a line by itself. Here is an example:
+      
+      <br />
+      > $ mail root jibs ops dev <<the text
+      <br />
+      > I want to tell everyone that there will be a 10 a.m.
+      <br />
+      > meeting in conference room B. Everyone must attend thsi meeting.
+      <br />
+      > --James
+      <br />
+      > thetext
+      <br />
+      $
+  <br />
+  
+  - This example send a mail to jibs, ops, and dev usernames. The tetx entered between <<thetext and the tetx becomes the content of themessage. A common use of here text is to use it with a text editor to create or add to a file from within a script:
+    
+    - /bin/ed /etc/resolv.conf  <<resendit
+      a
+      nameserver 100.100.100.100
+      .
+      w
+      q
+      resendit
+  
+  - With these lines added to a script run by the root user, the ed text editor adds the IP address of a DNS server to the /etc/resolv.conf file.
+  
+  
+### Using brace expansion characters
+
+- By using curly braces ({}), you can expand out a set of characters across filenames, directory names, or other arguments you give commands. For example, if you want to create a set of files such as memo1 through memo5, you can do that as follows:
+    
+    - $ touch memo{1,2,3,4,5}
+    - $ ls
+      <br />    
+      memo1 memo2 memo3 memo4 memo5
+  
+![image](https://user-images.githubusercontent.com/84306023/128028440-51c06011-3cf2-47bc-911f-68fc27cc14f3.png)
+
+  - To see if ls is aliased: type alias ls (The --color=auto option causes different types of files and directories to be displayed in different colors.)
+  
+  
+Exercise
+--------
+
+  1. cd $HOME/test
+  2. $ cd $HOME/test
+  3. $ touch scriptx.sh apple
+  4. $ chmod 755 scriptx.sh
+  5. $ mkdir Stuff
+  6. $ ln -s apple pointer_to_apple
+  7. $ ls
+  <br />
+  apple pointer_to_apple scriptx.sh Stuff 
   
 
+  > The directory docs shows up in blue, pointer_to_apple (a symbolic link) appears as aqua, and scriptx.sh (which is an executable file) appears in green. All other regular files show up in black. 
+Typing ls -lto see a long listing of those files can make these different types of files still clearer:
+
+  $ ls -l
+  total 4
+  -rw-rw-r--. 1 joe joe 0 Dec 18 13:38 apple
+  lrwxrwxrwx. 1 joe joe 5 Dec 18 13:46 pointer_to_apple -> apple
+  -rwxr-xr-x. 1 joe joe 0 Dec 18 13:37 scriptx.sh
+  drwxrwxr-x. 2 joe joe 4096 Dec 18 13:38 Stuff 
   
+  > A hyphen (-) indicates a regular file, d indicates a directory, and l ( lowercase L) indicates a symbolic link. An executable file (a script or a binary file that runs as a command) has execute bits turned on (x).
+
+  ![image](https://user-images.githubusercontent.com/84306023/128029040-2272f66e-58e2-49c3-ba5f-53a74aed38f9.png)
+
+> Displaying a long list (-l option) of the contents of your home directory shows you more about file sizes and directories. The total line shows the total amount of disk space used by the files in the list (158 kilobytes in this example). Directories such as the current directory (.) and the parent directory (..)—the directory above the current directory—are noted as directories by the letter d at the beginning of each entry. Each directory begins with a d and each file begins with a dash (-). The file and directory names are shown in column 7. In this example, a dot (.) represents /home/joe and two dots (..) represent /home—the parent directory of /joe. Most of the files in this example are dot (.).
   
+> In addition to the d or -, column 1 on each line contains the permissions set for that file or directory. Other information in the listing includes the number of hard links to the item (column 2), the size of each file in bytes (column 5), and the date and time each file was most recently modified (column 6). 
+  
+> Though the number can grow above 4096 bytes for a directory that contains lots of files, this number doesn’t reflect the size of files contained in that directory. 
+  
+> On occasion, instead of seeing the execute bit (x) set on an executable file, you may see an s in that spot instead. With an s appearing within either the owner (-rwsr-xr-x) or group (-rwxr-sr-x) permissions, or both (-rwsr-sr-x).
+  
+> If a t appears at the end of a directory, it indicates that the sticky bit is set for that directory (for example, drwxrwxr-t). By setting the sticky bit on a directory, the directory’s owner can allow other users and groups to add files to the directory, but prevent users from deleting each other’s files in that directory. With a set GID assigned to a directory, any files created in that directory are assigned the same group as the directory’s group. (If you see a capital S or T instead of the execute bits on a directory, it means that the set GID or stick bit permission, respectively, was set, but for some reason the execute bit was not also turned on.).
+  
+> If you see a plus sign at the end of the permission bits (for example, -rw-rw-r--+), it means that extended attributes, such as Access Control Lists (ACLs) or SELinux, are set on the file.  
+  
+![image](https://user-images.githubusercontent.com/84306023/128029416-230e190d-3841-41c0-9cd1-b2d7fb00cb76.png)
+
+  
+- ls -a = Any file or directory beginning with a dot (.) that are typically configuration files or directories. 
+  
+- The -t option displays files in the order in which they were most recently modified. With the -F option, a backslash (/) appears at the end of directory names, an asterisk (*) is added to executable files, and an at sign (@) is shown next to symbolic links. 
+
+- To list files and append file-type indicators:
+  
+  ![image](https://user-images.githubusercontent.com/84306023/128029688-d365afe1-ec60-4f68-b88d-06d644c657e4.png)
+
+- The nine bits assigned to each file for permissions define the access that you and the others have to your file. Permission bits for a regular file appear as -rwxrwxrwx. Those bits are used to   define who can read, write, or execute the file.
+  
+![image](https://user-images.githubusercontent.com/84306023/128029774-7115b4ce-d0bb-45ff-a832-600dda9dcaeb.png)
+
+  ![image](https://user-images.githubusercontent.com/84306023/128029807-440834d7-af0b-4ee0-849b-28f9fb661d3d.png)
+
+  - You can see the permission for any file or directory by typing the ls -ld command. 
+    - $ ls -ld ch3 test
+      <br />
+      -rw-rw-r-- 1 joe sales 4983 Jan 18 22:13 ch3
+      drwxr-xr-x 2 joe sales 1024 Jan 24 13:47 test 
+
+
+  ![image](https://user-images.githubusercontent.com/84306023/128029961-fab8e807-3922-4ecc-965a-49367583a43d.png)
+
+  ![image](https://user-images.githubusercontent.com/84306023/128029992-cd3925bf-e8ba-444d-9f7b-906d0ce91a09.png)
+
+  
+  ![image](https://user-images.githubusercontent.com/84306023/128030045-a1d5e51c-0b5c-4d39-b228-857af8bbc8b8.png)
+
+- sudoers.d example
+
+### Setting default file permission with umask
+  
+  - When you create a file as a regular user, it’s given permission rw-rw-r-- by default. A directory is given the permission rwxrwxr-x. For the root user, file and directory permission are rw-r--r-- and rwxr-xr-x, respectively. These default values are determined by the value of umask.
+    - $ umask
+      <br />
+      0002 
+  
+![image](https://user-images.githubusercontent.com/84306023/128030362-4c051c50-5455-40f7-881f-88a94f9047b7.png)
+
+![image](https://user-images.githubusercontent.com/84306023/128030391-9cb3f543-4809-422f-8ac4-6804d5faf176.png)
+  
+![image](https://user-images.githubusercontent.com/84306023/128030788-b42c10f4-a90b-4844-8f67-9a505e1b103b.png)
+
+![image](https://user-images.githubusercontent.com/84306023/128030811-2ff65b1d-f175-4ced-ab06-4ad20a8e241e.png)
+
+
     
 
   
